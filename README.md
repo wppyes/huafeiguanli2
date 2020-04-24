@@ -1,4 +1,5 @@
 # huafeiguanli2
+<<<<<<< HEAD
 
 > A Vue.js project
 
@@ -28,3 +29,6 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+话费管理系统复制版本
+>>>>>>> 578b5742b8b5d0545e5db91474eabc6d469a14e9
