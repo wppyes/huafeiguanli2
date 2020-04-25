@@ -53,7 +53,6 @@ export default {
         cid: [
           { required: true, message: "用户必须填写！", trigger: "change" }
         ],
-        setting: [{ required: true, message: "通道必须选择！", trigger: "change" }]
       },
     };
   },
@@ -83,6 +82,10 @@ export default {
          }))
      },
     submitUpload(){
+      
+      if(!this.temp.setting){
+        this.temp.setting=0;
+      }
         this.$refs["dataForm"].validate(valid => {
         if (valid) {  
             if(this.temp.filepath==''){

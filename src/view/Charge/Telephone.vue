@@ -63,7 +63,6 @@ export default {
         cid: [
           { required: true, message: "用户必须填写！", trigger: "change" }
         ],
-        setting: [{ required: true, message: "通道必须选择！", trigger: "change" }],
         phone:[{ required: true, trigger: ['change'], validator: validPhone }],
         amount:[{ required: true, trigger: ['change'], validator: validnum },{ type: 'number', message: '金额必须为数字值'}]
       },
@@ -83,6 +82,9 @@ export default {
   },
   methods: {
     submitUpload(){
+      if(!this.temp.setting){
+        this.temp.setting=0;
+      }
         this.$refs["dataForm"].validate(valid => {
         if (valid) {
             var data = this.$qs.stringify(this.temp);

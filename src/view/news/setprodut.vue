@@ -170,7 +170,9 @@ export default {
     handleditor(row, title) {
       this.temp.Id = row.Id;
       this.temp.Name = row.Name;
-      this.temp.ConfigJson = JSON.parse(row.ConfigJson);
+      if(row.ConfigJson){
+        this.temp.ConfigJson = JSON.parse(row.ConfigJson);
+      }      
       for (let i in arr) {
         if (arr[i].Channel) {
           let j = JSON.parse(arr[i].Channel);
@@ -179,7 +181,7 @@ export default {
       }
       for (let i in arr) {
         for (let j in this.temp.ConfigJson) {
-          if (this.temp.ConfigJson[j].ProductId == arr[i].Id) {
+          if (this.temp.ConfigJson[j].ProductId == arr[i].GoodId) {
             let k = JSON.parse(arr[i].Channel);
             for (let q in k) {
               if (k[q].ChannelType == this.temp.ConfigJson[j].ChannelType) {
@@ -250,22 +252,25 @@ export default {
       });
     },
     createData() {
+      this.temp.ConfigJson=[];
       for (let i in arr) {
         if (this.temp.Category == 0 && arr[i].ProductType <= 3) {
           let j = JSON.parse(arr[i].Config);
           let param = {
-            ProductId: arr[i].Id,
+            ProductId: arr[i].GoodId,
             ChannelType: j.ChannelType,
-            ChannelName: j.ChannelName
+            ChannelName: j.ChannelName,
+            ProductType:arr[i].ProductType
           };
           this.temp.ConfigJson.push(param);
         }
         if (this.temp.Category == 1 && arr[i].ProductType > 3) {
           let j = JSON.parse(arr[i].Config);
           let param = {
-            ProductId: arr[i].Id,
+            ProductId: arr[i].GoodId,
             ChannelType: j.ChannelType,
-            ChannelName: j.ChannelName
+            ChannelName: j.ChannelName,
+            ProductType:arr[i].ProductType
           };
           this.temp.ConfigJson.push(param);
         }

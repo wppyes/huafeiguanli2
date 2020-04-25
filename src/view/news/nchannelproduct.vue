@@ -73,7 +73,7 @@
         style="width: 400px; margin-left:50px;"
       > <el-form-item label="面值" prop="ProductId">
           <el-select v-model="temp.ProductId" placeholder="请选择面值" @change="getmoney">
-            <el-option v-for="item in PackageModel" v-if="item.ProductType==temp.ProductType" :label="item.ProductName" :key="item.Id" :value="item.Id"></el-option>
+            <el-option v-for="item in PackageModel" v-if="item.ProductType==temp.ProductType" :label="item.ProductName" :key="item.Id" :value="item.GoodId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="金额">
@@ -162,7 +162,7 @@ export default {
         },
         getmoney(){
           for(let i in this.PackageModel){
-            if(this.PackageModel[i].Id==this.temp.ProductId){
+            if(this.PackageModel[i].GoodId==this.temp.ProductId){
               this.money=this.PackageModel[i];
               break;
             }

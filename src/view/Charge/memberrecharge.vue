@@ -42,9 +42,9 @@
                 </el-table-column>
                 <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
-                        <span @click="temp.productid=scope.row.Id">
-                            <i v-show="scope.row.Id!=temp.productid" class="fa fa-square-o"></i>
-                            <i v-show="scope.row.Id==temp.productid" class="fa fa-check-square"></i>
+                        <span @click="temp.productid=scope.row.GoodId">
+                            <i v-show="scope.row.GoodId!=temp.productid" class="fa fa-square-o"></i>
+                            <i v-show="scope.row.GoodId==temp.productid" class="fa fa-check-square"></i>
                         </span>
                     </template>
                 </el-table-column>

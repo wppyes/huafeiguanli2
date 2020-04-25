@@ -9,16 +9,17 @@
       ></el-tab-pane>
     </el-tabs>
     <div class="filter-container">
-      <el-button type="primary" class="add" @click="handleadd('增加套餐产品',true)">
-        <i class="el-icon-circle-plus"></i> 增加套餐产品
+      <el-button type="primary" class="add" @click="handleadd('增加产品',true)">
+        <i class="el-icon-circle-plus"></i> 增加产品
       </el-button>
     </div>
     <el-table v-loading="listLoading" :data="List" border fit highlight-current-row>
+      <el-table-column label="产品编码" prop="GoodId" align="center"></el-table-column>
       <el-table-column label="名称" prop="ProductName" align="center"></el-table-column>
       <el-table-column label="面值" prop="Parvalue" align="center"></el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="handleditor(scope.row,'修改套餐')">
+          <el-button size="mini" type="primary" @click="handleditor(scope.row,'修改产品')">
             <i class="el-icon-edit"></i> 编辑
           </el-button>
           <el-button size="mini" type="danger" @click="handledel(scope.row)">
@@ -40,6 +41,9 @@
           <el-checkbox-group v-model="temp.list">
             <el-checkbox v-for="item in channelist" :label="JSON.stringify(item)" :key="item.ChannelType" name="type">{{item.ChannelName}}</el-checkbox>
           </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="产品编码" prop="GoodId">
+          <el-input v-model="temp.GoodId" placeholder="请填写产品编码"/>
         </el-form-item>
         <el-form-item label="名称" prop="ProductName">
           <el-input v-model="temp.ProductName" placeholder="请填写产品名字"/>
@@ -77,6 +81,7 @@ export default {
         Id: 0,
         ProductType: "1",
         ProductName: "",
+        GoodId:'',
         Parvalue:'',
         list:[]
       },
@@ -86,6 +91,9 @@ export default {
       dialogStatus: "", //面板标题
       dialogFormVisible: false, //面板是否展示
       rules: {
+        GoodId: [
+          { required: true, message: "产品编码必须填写！", trigger: "blur" }
+        ],
         ProductName: [
           { required: true, message: "产品名称必须填写！", trigger: "blur" }
         ],
@@ -100,7 +108,7 @@ export default {
   },
   created() {
     request({
-      url: "News/PackageProduct/GetNPackageProductList",
+      url: "News/NPackageProduct/GetNPackageProductList",
       method: "get",
       params: {}
     }).then(response => {      
@@ -111,7 +119,7 @@ export default {
         }
     });
     request({
-      url: "News/PackageProduct/GetTypeList",
+      url: "News/NPackageProduct/GetTypeList",
       method: "get",
       params: {}
     }).then(response => {      
@@ -151,6 +159,7 @@ export default {
         handleditor(row, title) {
             this.temp = {
                 Id: row.Id,
+                GoodId:row.GoodId,
                 ProductType: row.ProductType.toString(),
                 ProductName: row.ProductName,
                 Parvalue: row.Parvalue,
@@ -177,7 +186,7 @@ export default {
         })
             .then(() => {
             request({
-                url: "News/PackageProduct/Update",
+                url: "News/NPackageProduct/Update",
                 method: "post",
                 data
             }).then(response => {
@@ -198,6 +207,7 @@ export default {
         this.temp.Id=0;
         this.temp.ProductName='';
         this.temp.Parvalue='';
+        this.temp.GoodId='';
         this.temp.list=[];
         this.dialogStatus = title;
         this.dialogFormVisible = true;
@@ -213,7 +223,7 @@ export default {
         if (valid) {
           var data = this.$qs.stringify(this.temp);
           request({
-            url: "News/PackageProduct/SetNPackageProduct",
+            url: "News/NPackageProduct/SetNPackageProduct",
             method: "post",
             data
           }).then(response => {
@@ -225,6 +235,7 @@ export default {
                         Id: response.Id,
                         ProductType: parseInt(this.temp.ProductType),
                         ProductName: this.temp.ProductName,
+                        GoodId:this.temp.GoodId,
                         Parvalue:parseFloat(this.temp.Parvalue),
                         Channel:JSON.stringify(this.temp.list)
                       };
@@ -234,6 +245,7 @@ export default {
                     if(arr[i].Id==this.temp.Id){
                       arr[i].ProductType =parseInt(this.temp.ProductType);
                       arr[i].ProductName=this.temp.ProductName;
+                      arr[i].GoodId=this.temp.GoodId;
                       arr[i].Parvalue=parseFloat(this.temp.Parvalue);
                       arr[i].Channel=JSON.stringify(this.temp.list);
                       break;

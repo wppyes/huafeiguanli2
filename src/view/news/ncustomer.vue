@@ -590,7 +590,7 @@ export default {
       for (let i in this.templist) {
           var param = {
               Id: this.templist[i].Id,
-              ProductId: this.templist[i].PId,
+              ProductId: this.templist[i].GoodId,
               ProductType: this.templist[i].ProductType,
               Amount: this.templist[i].Parvalue,
               ActualAmont: this.templist[i].ActualAmont
