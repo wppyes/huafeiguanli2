@@ -37,8 +37,20 @@
           </el-row>
         </div>
       </el-col>
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+        <div class="box">聚速通余额
+          <el-row>
+            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">平台：{{JSTBalance?JSTBalance:0}} 元
+              <i class="el-icon-refresh" @click="getBanlance(3)"></i>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12">系统：{{JSTTBalance?JSTTBalance:0}} 元
+              <i class="el-icon-refresh" @click="getBanlance(13)"></i>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
     </el-row>
-    <h2 class="title">订单
+    <!-- <h2 class="title">订单
       <i class="el-icon-refresh" v-on:click="getOrder()"></i>
     </h2>
     <el-row>
@@ -108,7 +120,7 @@
             </tbody>
         </table>
       </el-col>
-    </el-row>
+    </el-row> -->
     
   </div>
 </template>
@@ -131,6 +143,9 @@ export default {
       FlXZXTBalance: 0,
       YJXTBalance: 0,
 
+      JSTBalance:0,
+      JSTTBalance:0
+
     };
   },
   computed: {},
@@ -152,6 +167,9 @@ export default {
                 this.FLWHXTBalance = response.Cbalance.FLWHXTBalance;
                 this.FlXZXTBalance = response.Cbalance.FlXZXTBalance;
                 this.YJXTBalance = response.Cbalance.YJXTBalance;
+                
+                this.JSTBalance = response.Cbalance.JSTBalance;
+                this.JSTTBalance = response.Cbalance.JSTTBalance;
             }
             if (type == 0) {
                 this.FlWHBalance = response.Cbalance.FlWHBalance;
