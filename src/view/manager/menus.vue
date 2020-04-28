@@ -1,7 +1,12 @@
 <template>
   <div class="menus boxright">
-    <el-button type="primary" class="add" @click="handleadd(0,'增加菜单',true,true)"><i class="el-icon-circle-plus"></i> 增加菜单</el-button>
-   <el-table v-loading="listLoading" :data="list" border fit highlight-current-row>
+    <div class="filter-container">
+        <div class="filter-item">
+          <el-button type="primary" @click="handleadd(0,'增加菜单',true,true)"><i class="el-icon-circle-plus"></i> 增加菜单</el-button>
+        </div>
+      </div>
+    
+    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row>
       <el-table-column type="expand" align="center">
           <template slot-scope="props">
              <el-table :data="props.row.MenuE" border fit highlight-current-row >
@@ -23,6 +28,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column label="链接地址" prop="Url" width="200px" align="center"></el-table-column>
+                <el-table-column label="控制器" prop="Controller" width="200px" align="center"></el-table-column>
                 <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
                     <el-button
@@ -68,7 +74,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :title="dialogStatus" :visible.sync="dialogFormVisible" width="550px">
+    <el-dialog :title="dialogStatus" :visible.sync="dialogFormVisible" :close-on-click-modal="false" width="550px">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
         <el-form-item label="菜单名称" prop="Name">
           <el-input v-model="temp.Name" placeholder="请填写菜单名称"/>
@@ -78,6 +84,9 @@
         </el-form-item>
         <el-form-item label="链接" v-show="!ismain">
           <el-input v-model="temp.Url" placeholder="请填写菜单链接"/>
+        </el-form-item>
+        <el-form-item label="控制器" v-show="temp.ParentId!=0">
+          <el-input v-model="temp.Controller" placeholder="请填写菜单控制器"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -100,7 +109,8 @@ export default {
         Name: '',
         ParentId: 0,
         Url: '',
-        Icon: ''
+        Icon: '',
+        Controller:''
       },
       flag:true,//排序连点禁止
       dialogStatus:'',//面板标题    
@@ -133,7 +143,8 @@ export default {
         ParentId: row.ParentId,
         Sort: row.Sort,
         Url: row.Url,
-        Icon: row.Icon
+        Icon: row.Icon,
+        Controller:row.Controller
       };
       this.dialogStatus = title;
       this.dialogFormVisible = true;
@@ -188,7 +199,8 @@ export default {
           ParentId: 0,
           Url: '',
           Icon: '',
-          MenuE:[]
+          MenuE:[],
+          Controller:''
         };
       }else{
         this.temp={
@@ -196,7 +208,8 @@ export default {
           Name: '',
           ParentId: 0,
           Url: '',
-          Icon: ''
+          Icon: '',
+          Controller:''
         };
       }  
       if(row!=0){
@@ -235,6 +248,7 @@ export default {
                       this.list[i].Name=this.temp.Name;
                       this.list[i].Url=this.temp.Url;
                       this.list[i].Icon=this.temp.Icon;
+                      this.list[i].Controller=this.temp.Controller;
                       break
                     }
                   }
@@ -246,6 +260,7 @@ export default {
                           this.list[i].MenuE[v].Name=this.temp.Name;
                           this.list[i].MenuE[v].Url=this.temp.Url;
                           this.list[i].MenuE[v].Icon=this.temp.Icon;
+                          this.list[i].MenuE[v].Controller=this.temp.Controller;
                           break
                         }
                       }
@@ -296,7 +311,6 @@ export default {
 };
 </script>
 <style lang="scss" rel="stylesheet/scss">
-  .menus .add{margin-bottom: 20px;}
   .menus .disabled{color: #C0C4CC;}
   .menus span{cursor: pointer;}
 </style>

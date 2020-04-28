@@ -114,12 +114,12 @@ export default {
               data
             }).then(response => {
               if (response.Status == 1) {
-                this.loading = true;
+               this.loading = true;
                 var tempdata = {
                   Name: response.Model.Name,
                   img: response.Model.Images
                 };
-                localStorage.setItem("SiteKey", response.SiteKey + ",1");
+                localStorage.setItem("SiteKey", response.SiteKey + ","+response.PathId);
                 var modelobj = JSON.stringify(tempdata);
                 localStorage.setItem("logintemp", modelobj);                
                 this.loading = false;
@@ -127,7 +127,7 @@ export default {
                   this.$router.go(-1);
                 }else{
                   this.$router.push({
-                    path: "/charge/chargeorder"
+                    path: response.Path
                   });
                 }                
               }

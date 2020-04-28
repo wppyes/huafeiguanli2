@@ -100,6 +100,8 @@ export default {
     },
     getList(){
           this.listLoading = true;
+          this.all.Amount=0;
+          this.all.Counts=0;
           request({
           url: "Statistics/UserPayment/GetUserPaymentList",
           method: "get",
@@ -110,9 +112,7 @@ export default {
                       for (let i in response.List) {
                           this.all.Amount += response.List[i].Amount;
                           this.all.Counts += response.List[i].Counts;
-                      }
-                      this.all.Amount = this.all.Amount.toFixed(2);
-                      this.all.Counts = this.all.Counts;
+                      }                    
                     this.listLoading=false;
               }
           });

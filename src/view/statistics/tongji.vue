@@ -132,9 +132,9 @@ export default {
   },
   created() {
     request({
-      url: "Charge/ChargeOrder/GetNChannelSettingList",
+      url: "Statistics/HFStatistics/GetNChannelSettingList",
       method: "get",
-      params: { type: 1 }
+      params: {}
     }).then(response => {
         if(response.Status==1){
       this.userlist = response.modelCustomer;

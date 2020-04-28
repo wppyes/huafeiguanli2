@@ -30,7 +30,7 @@ export default {
   },
   created(){
     request({
-      url: 'Menus/GetMenusAllList',
+      url: 'Currency/GetMenusAllList',
       method: 'get',
       params: {}
     }).then(response => {

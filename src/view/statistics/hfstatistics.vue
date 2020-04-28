@@ -219,7 +219,7 @@ export default {
     getaddList(){
         this.addlistloading = true;        
         request({
-        url: "News/NCustomerPackage/GetNCustomerPackageList",
+        url: "Statistics/HFStatistics/GetNCustomerPackageList",
         method: "get",
         params: this.listQueryadd
         }).then(response => {
@@ -244,7 +244,7 @@ export default {
     getListinfo(){
        this.infolistloading = true;
         request({
-        url: "News/NTransfer/GetTransactionRecordList",
+        url: "Statistics/HFStatistics/GetTransactionRecordList",
         method: "get",
         params: this.listQueryinfo
         }).then(response => {

@@ -70,9 +70,9 @@ export default {
   },
   created() {
     request({
-      url: "Charge/ChargeOrder/GetNChannelSettingList",
+      url: "Charge/Telephone/GetNChannelSettingList",
       method: "get",
-      params: {type: 1,status:1}
+      params: {type: 1}
     }).then(response => {
       if (response.Status==1) {
       this.channelist = response.List;
